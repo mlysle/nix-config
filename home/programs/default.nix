@@ -7,5 +7,7 @@
     ./git.nix
     ./firefox.nix
     ./bash.nix
+    ./thunderbird.nix
+    ./kodi.nix
   ];
 }

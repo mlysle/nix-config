@@ -4,6 +4,7 @@
   imports = [
     ./programs
     ./services
+    ./accounts
   ];
 
   home.username = "max";
