@@ -21,7 +21,7 @@
         };
 
         "VimFx-unlisted@akhodakivskiy.github.com" = {
-          install_url       = "https://github.com/akhodakivskiy/VimFx/releases/download/v0.27.5/VimFx.xpi";
+          install_url       = "https://github.com/akhodakivskiy/VimFx/releases/download/v0.27.6/VimFx.xpi";
           installation_mode = "force_installed";
           updates_disabled  = true;
         };

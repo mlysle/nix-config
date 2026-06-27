@@ -25,7 +25,7 @@
       specialArgs = {inherit inputs;};
 
       modules = [
-        ./configuration.nix
+        ./hosts/steamdeck/default.nix
 
         ./jovian.nix
 
