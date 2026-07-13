@@ -13,14 +13,30 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     legacyfox = {
       url = "git+https://git.gir.st/LegacyFox.git";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, jovian, home-manager, legacyfox, ... }@inputs: {
-    nixosConfigurations.sigismund = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, jovian, home-manager, plasma-manager, legacyfox, nvf, agenix, ... }@inputs: {
+    nixosConfigurations.eihwaz = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
 
@@ -28,7 +44,6 @@
         ./hosts/steamdeck/default.nix
 
         ./jovian.nix
-
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

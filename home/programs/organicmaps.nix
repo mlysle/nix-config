@@ -1,5 +1,5 @@
 { pkgs, ... } :
 
 {
-  home.packages = [ pkgs.organicmaps];
+  home.packages = [ pkgs.organicmaps pkgs.agenix-cli];
 }

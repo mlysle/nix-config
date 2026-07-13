@@ -9,5 +9,18 @@
     ./bash.nix
     ./thunderbird.nix
     ./kodi.nix
+    ./temurin.nix
+    ./prism-launcher.nix
+    ./pass.nix
+    ./kitty.nix
+    ./gh.nix
+    ./tor-browser.nix
+    ./syncthing.nix
+    ./qbittorrent.nix
+    ./gimp.nix
+    ./tuxguitar.nix
+    ./mpv.nix
+    ./yt-dlp.nix
+    ./rssguard.nix
   ];
 }

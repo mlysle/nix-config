@@ -2,7 +2,7 @@
 
 {
   programs.kodi = {
-    enable = true;
+    # enable = true;
   };
 
   # networking.firewall = {

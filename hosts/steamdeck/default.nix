@@ -16,7 +16,7 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "sigismund"; # Define your hostname.
+  networking.hostName = "eihwaz"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -46,6 +46,7 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Enable CUPS to print documents.
@@ -138,4 +139,41 @@
   hardware.gpgSmartcards.enable = true;
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
+
+  programs.ssh.knownHosts = {
+    github = {
+      hostNames = [ "github.com" ];
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+    };
+  };
+  systemd.timers."sleep-and-wake" = {
+    wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "midnight";
+        Persistent = true;
+      };
+  };
+  
+  systemd.services."sleep-and-wake" = {
+    script = ''
+      set -eu
+      ${pkgs.util-linux}/bin/rtcwake -m mem -t $(${pkgs.coreutils}/bin/date -d "06:00" +%s)
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+  };
+
+  programs.yubikey-touch-detector = {
+    enable = true;
+    libnotify = true;
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+  programs.kdeconnect.enable = true;
 }
