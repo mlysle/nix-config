@@ -14,12 +14,19 @@
   home.homeDirectory = "/home/max";
   home.stateVersion = "26.05";
 
+  home.sessionVariables = {
+    EDITOR="nvim";
+    SUDO_EDITOR="nvim";
+  };
+
   home.packages = with pkgs; [
     wget
     wl-clipboard
     #yubikey-manager
     #yubikey-personalization
     wineWow64Packages.waylandFull
+    strawberry
+    appimage-run
   ];
 
   # Enable SafeEyes
@@ -72,17 +79,89 @@
         presets.nixfmt.enable = true;
       };
       vim.utility  = {
-
+        oil-nvim = {
+          enable = true;
+          gitStatus.enable = true;
+        };
       };
       vim.options = {
         smartindent = true;
         tabstop = 2;
         shiftwidth = 2;
       };
+      vim.keymaps = [
+        {
+          key = "x";
+          mode = "n";
+          silent = true;
+          action = "\"_x";
+        }
+        {
+          key = "X";
+          mode = "n";
+          silent = true;
+          action = "\"_X";
+        }
+        {
+          key = "c";
+          mode = "n";
+          silent = true;
+          action = "\"_c";
+        }
+        {
+          key = "C";
+          mode = "n";
+          silent = true;
+          action = "\"_C";
+        }
+        # oil
+        {
+          key = "-";
+          mode = "n";
+          silent = true;
+          action = "<cmd>Oil<CR>";
+        }
+
+        # dial
+        {
+          key = "<C-a>";
+          mode = "x";
+          silent = true;
+          lua = true;
+          action = "function() require('dial.map').manipulate('increment', 'visual') end";
+        }
+
+        {
+          key = "<C-x>";
+          mode = "x";
+          silent = true;
+          lua = true;
+          action = "function() require('dial.map').manipulate('decrement', 'visual') end";
+        }
+
+        {
+          key = "<C-a>";
+          mode = "n";
+          silent = true;
+          lua = true;
+          action = "function() require('dial.map').manipulate('increment', 'normal') end";
+        }
+
+        {
+          key = "<C-x>";
+          mode = "n";
+          silent = true;
+          lua = true;
+          action = "function() require('dial.map').manipulate('decrement', 'normal') end";
+        }
+      ];
       vim.theme = {
         enable = true;
         name = "catppuccin";
         style = "macchiato";
+      };
+      vim.visuals = {
+        rainbow-delimiters.enable = true;
       };
       vim.treesitter.enable = true;
       vim.languages = {
@@ -97,6 +176,7 @@
         enable = true;
         setupOpts = {
           load = {
+            "core.defaults".enable = true;
             "core.journal".config.strategy = "flat";
             "core.dirman".config = {
               workspaces.notes = "~/doc/notes/neorg/notes";
@@ -105,6 +185,21 @@
           };
         };
         treesitter.enable = true;
+      };
+      vim.extraPlugins = with pkgs.vimPlugins; {
+        "dial.nvim" = {
+          package = dial-nvim;
+          setup = ''
+            local augend = require("dial.augend")
+            require("dial.config").augends:register_group{
+              default = {
+                augend.integer.alias.decimal,
+                augend.integer.alias.hex,
+                augend.constant.alias.bool,
+              },
+            }
+          '';
+        };
       };
     };
   };

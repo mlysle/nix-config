@@ -22,5 +22,8 @@
     ./mpv.nix
     ./yt-dlp.nix
     ./rssguard.nix
+    ./agenix.nix
+    ./openmw.nix
+    ./zoom.nix
   ];
 }

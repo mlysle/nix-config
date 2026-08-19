@@ -7,6 +7,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/nixos
     ];
 
   # Bootloader.
@@ -49,9 +50,6 @@
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -86,6 +84,9 @@
     pcsc-tools
     pcsclite
     ccid
+
+    imagemagick
+    kdePackages.kamoso
   ];
 
   services.pcscd.enable = true;
@@ -122,11 +123,18 @@
   });
   '';
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowedUDPPorts = [ 5353 1900 ]; 
+    allowedTCPPorts = [ 8008 8009 5556 5558 ];
+    allowedUDPPortRanges = [
+      { from = 32768; to = 61000; }
+      { from = 1714; to = 1764; } # KDE Connect
+    ];
+    allowedTCPPortRanges = [ 
+      { from = 1714; to = 1764; } # KDE Connect
+    ];  
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -170,10 +178,17 @@
     libnotify = true;
   };
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
   programs.kdeconnect.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    mesa
+  ];
+
+  services.flatpak.enable = true;
 }

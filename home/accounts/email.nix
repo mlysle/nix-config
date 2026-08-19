@@ -28,4 +28,17 @@
       enable = true;
     };
   };
+
+  accounts.email.accounts.uw = {
+    address = "mlysle@uwyo.edu";
+    userName = "mlysle@uwyo.edu";
+
+    realName = "Maxwell Lysle";
+
+    flavor = "outlook.office365.com";
+
+    thunderbird = {
+      enable = true;
+    };
+  };
 }

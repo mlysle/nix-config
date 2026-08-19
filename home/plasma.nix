@@ -12,6 +12,9 @@
     };
     input.keyboard = {
       options = [ "altwin:swap_alt_win" ];
+      repeatDelay = 200;
+      repeatRate = 60;
+
     };
     shortcuts = {
       "kmix" = {

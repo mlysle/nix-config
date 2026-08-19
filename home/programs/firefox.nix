@@ -16,18 +16,28 @@
       in {
         "*".installation_mode = "allowed";
 
+        # uBlock Origin
         "uBlock0@raymondhill.net" = {
           install_url       = moz "ublock-origin";
           installation_mode = "force_installed";
           updates_disabled  = true;
         };
 
-        "VimFx-unlisted@akhodakivskiy.github.com" = {
-          install_url       = "https://github.com/akhodakivskiy/VimFx/releases/download/v0.27.6/VimFx.xpi";
+        # Multi-Account Containers
+        "@testpilot-containers" = {
+          install_url       = moz "multi-account-containers";
           installation_mode = "force_installed";
           updates_disabled  = true;
         };
 
+        # VimFx
+        "VimFx-unlisted@akhodakivskiy.github.com" = {
+          install_url       = "https://github.com/akhodakivskiy/VimFx/releases/download/v0.27.7/VimFx.xpi";
+          installation_mode = "force_installed";
+          updates_disabled  = true;
+        };
+
+        # ClearURLs
         "{74145f27-f039-47ce-a470-a662b129930a}" = {
           install_url       = moz "clearurls";
           installation_mode = "force_installed";
@@ -40,20 +50,67 @@
           updates_disabled  = true;
         };
 
+        # ActivityWatch
         "{ef87d84c-2127-493f-b952-5b4e744245bc}" = {
           install_url       = moz "aw-watcher-web/";
           installation_mode = "force_installed";
           updates_disabled  = true;
         };
 
+        # RSSPreview
         "{7799824a-30fe-4c67-8b3e-7094ea203c94}" = {
           install_url       = moz "rsspreview";
+          installation_mode = "force_installed";
+          updates_disabled  = true;
+        };
+
+        # Cast Kodi
+        "castkodi@regseb.github.io" = {
+          install_url       = moz "castkodi";
+          installation_mode = "force_installed";
+          updates_disabled  = true;
+        };
+
+        # Simple Tab Groups
+        "simple-tab-groups@drive4ik" = {
+          install_url       = moz "simple-tab-groups";
+          installation_mode = "force_installed";
+          updates_disabled  = true;
+        };
+
+        # LeechBlock NG
+        "leechblockng@proginosko.com" = {
+          install_url       = moz "leechblock-ng";
+          installation_mode = "force_installed";
+          updates_disabled  = true;
+        };
+
+        # Readeck
+        "readeck@readeck.com" = {
+          install_url       = moz "readeck";
+          installation_mode = "force_installed";
+          updates_disabled  = true;
+        };
+
+        # Violent Monkey
+        "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" = {
+          install_url       = moz "violentmonkey";
+          installation_mode = "force_installed";
+          updates_disabled  = true;
+        };
+
+        # Better Campus
+        "{8927f234-4dd9-48b1-bf76-44a9e153eee0}" = {
+          install_url       = moz "better-canvas";
           installation_mode = "force_installed";
           updates_disabled  = true;
         };
       };
 
       "3rdparty".Extensions = {
+        "leechblockng@proginosko.com" = {
+        };
+
         "{ef87d84c-2127-493f-b952-5b4e744245bc}" = {
           "consentOfflineDataCollection" = true;
         };
@@ -87,11 +144,28 @@
             "adguard-widgets"
             "ublock-annoyances"
           ];
+          "userFilters" = "https://en.wikipedia.org\nen.wikipedia.org###mp-itn\nen.wikipedia.org###mp-itn-h2";
         };
       };
     };
     profiles.default = {
+      containersForce = true;
+      containers = {
+        uw = {
+          id = 1;
+          color = "green";
+          name = "UW";
+          icon = "circle";
+        };
+        lccc = {
+          id = 2;
+          color = "yellow";
+          name = "LCCC";
+          icon = "circle";
+        };
+      };
       settings = {
+        "browser.aboutConfig.showWarning" = false;
         "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
         "browser.newtabpage.activity-stream.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredCheckboxes" = false;
@@ -99,6 +173,26 @@
         # For Steam Deck
         "media.av1.enabled" = false;
         "browser.startup.page" = 3;
+        "browser.toolbars.bookmarks.visibility" = "always";
+      };
+      bookmarks = {
+        # force = true;
+        # settings = [
+        #   {
+        #     name = "Bookmarks Toolbar";
+        #     toolbar = true;
+        #     bookmarks = [
+        #       {
+        #         name = "WyoWeb";
+        #         url = "https://wyoweb.uwyo.edu/";
+        #       }
+        #       {
+        #         name = "myLCCC";
+        #         url = "https://login.classlink.com/my/lccc";
+        #       }
+        #     ];
+        #   }
+        # ];
       };
       search = {
         force = true;
@@ -168,6 +262,19 @@
             icon = "https://youtube.com/favicon.ico";
             definedAliases = [ "y" "@youtube" ];
           };
+
+          annas-archive = {
+            name = "Anna's Archive";
+            urls = [{
+              template = "https://annas-archive.gd/search";
+              params = [
+                { name = "q"; value = "{searchTerms}"; }
+              ];
+            }];
+            icon = "https://annas-archive.gd/favicon.ico";
+            definedAliases = [ "an" "@annas" ];
+          };
+
           bing.metaData.hidden = true;
         };
       };
