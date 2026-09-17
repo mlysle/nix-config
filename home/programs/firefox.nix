@@ -79,11 +79,11 @@
         };
 
         # LeechBlock NG
-        "leechblockng@proginosko.com" = {
-          install_url       = moz "leechblock-ng";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
+        # "leechblockng@proginosko.com" = {
+        #   install_url       = moz "leechblock-ng";
+        #   installation_mode = "force_installed";
+        #   updates_disabled  = true;
+        # };
 
         # Readeck
         "readeck@readeck.com" = {
@@ -100,11 +100,11 @@
         };
 
         # Better Campus
-        "{8927f234-4dd9-48b1-bf76-44a9e153eee0}" = {
-          install_url       = moz "better-canvas";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
+        # "{8927f234-4dd9-48b1-bf76-44a9e153eee0}" = {
+        #   install_url       = moz "better-canvas";
+        #   installation_mode = "force_installed";
+        #   updates_disabled  = true;
+        # };
       };
 
       "3rdparty".Extensions = {
@@ -144,7 +144,7 @@
             "adguard-widgets"
             "ublock-annoyances"
           ];
-          "userFilters" = "https://en.wikipedia.org\nen.wikipedia.org###mp-itn\nen.wikipedia.org###mp-itn-h2";
+          "userFilters" = "en.wikipedia.org###mp-itn\nen.wikipedia.org###mp-itn-h2";
         };
       };
     };

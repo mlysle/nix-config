@@ -2,6 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    temurin-bin-25
+    libreoffice-qt
   ];
 }

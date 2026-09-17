@@ -33,9 +33,13 @@
       url = "git+https://git.gir.st/LegacyFox.git";
       flake = false;
     };
+    compose2nix = {
+      url = "github:aksiksi/compose2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, jovian, home-manager, plasma-manager, legacyfox, nvf, agenix, ... }@inputs: {
+  outputs = { self, nixpkgs, jovian, home-manager, plasma-manager, legacyfox, nvf, agenix, compose2nix, ... }@inputs: {
     nixosConfigurations.eihwaz = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};

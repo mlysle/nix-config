@@ -1,6 +1,9 @@
-{config, pkgs, inputs,  ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     inputs.nvf.homeManagerModules.default
     inputs.agenix.homeManagerModules.default
@@ -15,8 +18,9 @@
   home.stateVersion = "26.05";
 
   home.sessionVariables = {
-    EDITOR="nvim";
-    SUDO_EDITOR="nvim";
+    EDITOR = "nvim";
+    SUDO_EDITOR = "nvim";
+    TERMINAL = "kitty";
   };
 
   home.packages = with pkgs; [
@@ -27,6 +31,9 @@
     wineWow64Packages.waylandFull
     strawberry
     appimage-run
+    dotnet-sdk_10
+    typst
+    python3
   ];
 
   # Enable SafeEyes
@@ -41,11 +48,11 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/html" = [ "firefox.desktop" ];
-      "x-scheme-handler/http" = [ "firefox.desktop" ];
-      "x-scheme-handler/https" = [ "firefox.desktop" ];
-      "x-scheme-handler/about" = [ "firefox.desktop" ];
-      "x-scheme-handler/unknown" = [ "firefox.desktop" ];
+      "text/html" = ["firefox.desktop"];
+      "x-scheme-handler/http" = ["firefox.desktop"];
+      "x-scheme-handler/https" = ["firefox.desktop"];
+      "x-scheme-handler/about" = ["firefox.desktop"];
+      "x-scheme-handler/unknown" = ["firefox.desktop"];
     };
   };
 
@@ -63,6 +70,15 @@
     templates = null;
   };
 
+  xdg.terminal-exec = {
+    enable = true;
+    settings = {
+      default = [
+        "kitty.desktop"
+      ];
+    };
+  };
+
   programs.nvf = {
     enable = true;
     settings = {
@@ -73,12 +89,26 @@
         providers.wl-copy.enable = true;
         registers = "unnamedplus";
       };
-      vim.lsp.enable = true;
+      vim.lsp = {
+        enable = true;
+        formatOnSave = true;
+      };
       vim.formatter.conform-nvim = {
         enable = true;
         presets.nixfmt.enable = true;
+        presets.csharpier.enable = true;
+        setupOpts = {
+          formatters_by_ft = {
+            cs = ["csharpier"];
+            nix = ["nixfmt"];
+          };
+          format_on_save = {
+            timeout_ms = 1000;
+            lsp_fallback = false; # Prevents the LSP from stepping in if anything goes wrong
+          };
+        };
       };
-      vim.utility  = {
+      vim.utility = {
         oil-nvim = {
           enable = true;
           gitStatus.enable = true;
@@ -166,10 +196,31 @@
       vim.treesitter.enable = true;
       vim.languages = {
         enableTreesitter = true;
+        # enableFormat = true;
         nix = {
           enable = true;
-          lsp.servers = ["nixd"]; 
-          format.type = ["nixfmt"]; 
+          lsp.servers = ["nixd"];
+          # format.type = ["nixfmt"];
+        };
+        csharp = {
+          enable = true;
+          # format.enable = true;
+          # format.type = ["csharpier"];
+        };
+        python = {
+          enable = true;
+        };
+        typst = {
+          enable = true;
+          extensions = {
+            # typst-concealer = false;
+            typst-preview-nvim = {
+              enable = true;
+              setupOpts = {
+                invert_colors = "auto";
+              };
+            };
+          };
         };
       };
       vim.notes.neorg = {
@@ -186,6 +237,7 @@
         };
         treesitter.enable = true;
       };
+
       vim.extraPlugins = with pkgs.vimPlugins; {
         "dial.nvim" = {
           package = dial-nvim;
@@ -199,6 +251,21 @@
               },
             }
           '';
+        };
+      };
+
+      vim.autocomplete.blink-cmp = {
+        enable = true;
+        friendly-snippets.enable = true;
+      };
+
+      vim.diagnostics = {
+        enable = true;
+        config = {
+          signs = true;
+          underline = true;
+          virtual_text = true;
+          virtual_lines = true;
         };
       };
     };

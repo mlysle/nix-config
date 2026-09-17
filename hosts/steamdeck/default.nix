@@ -86,7 +86,7 @@
     ccid
 
     imagemagick
-    kdePackages.kamoso
+    # kdePackages.kamoso
   ];
 
   services.pcscd.enable = true;

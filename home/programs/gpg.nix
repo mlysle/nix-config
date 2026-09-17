@@ -9,7 +9,7 @@
     publicKeys = [
       {
         source = ../max-pub.asc;
-	trust = "ultimate";
+        trust = "ultimate";
       }
     ];
   };

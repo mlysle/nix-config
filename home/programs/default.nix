@@ -25,5 +25,8 @@
     ./agenix.nix
     ./openmw.nix
     ./zoom.nix
+    ./libreoffice.nix
+    ./zathura.nix
+    ./calibre.nix
   ];
 }
