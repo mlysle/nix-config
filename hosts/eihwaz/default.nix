@@ -72,9 +72,6 @@
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [
-      kdePackages.kate
-    ];
   };
 
   environment.systemPackages = with pkgs; [
