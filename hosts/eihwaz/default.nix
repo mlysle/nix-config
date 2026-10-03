@@ -1,14 +1,13 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, inputs, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/nixos
-    ];
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    ../../machines/steamdeck/hardware-configuration.nix
+    ../../modules/nixos
+    ../../modules/nixos/jovian.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -66,37 +65,31 @@
     #media-session.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
     description = "Maxwell";
-    extraGroups = [ "networkmanager" "wheel" "pcscd" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       kdePackages.kate
     ];
   };
 
   environment.systemPackages = with pkgs; [
-    gnupg
-    pinentry-curses
-    yubikey-personalization
-    usbutils
-    pcsc-tools
-    pcsclite
-    ccid
-
     imagemagick
-    # kdePackages.kamoso
   ];
-
-  services.pcscd.enable = true;
 
   programs.neovim.enable = true;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -106,34 +99,34 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  security.polkit.enable = true;
-  security.polkit.extraConfig = ''
-  polkit.addRule(function(action, subject) {
-    if (action.id == "org.debian.pcsc-lite.access_card") {
-        return polkit.Result.YES;
-    }
-  });
-  polkit.addRule(function(action, subject) {
-      if (action.id == "org.debian.pcsc-lite.access_pcsc") {
-          return polkit.Result.YES;
-      }
-  });
-  '';
-
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 5353 1900 ]; 
-    allowedTCPPorts = [ 8008 8009 5556 5558 ];
-    allowedUDPPortRanges = [
-      { from = 32768; to = 61000; }
-      { from = 1714; to = 1764; } # KDE Connect
+    allowedUDPPorts = [
+      5353
+      1900
     ];
-    allowedTCPPortRanges = [ 
-      { from = 1714; to = 1764; } # KDE Connect
-    ];  
+    allowedTCPPorts = [
+      8008
+      8009
+      5556
+      5558
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 32768;
+        to = 61000;
+      }
+      {
+        from = 1714;
+        to = 1764;
+      } # KDE Connect
+    ];
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      } # KDE Connect
+    ];
   };
 
   # This value determines the NixOS release from which the default
@@ -143,40 +136,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-
-  hardware.gpgSmartcards.enable = true;
-
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-
-  programs.ssh.knownHosts = {
-    github = {
-      hostNames = [ "github.com" ];
-      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
-    };
-  };
-  systemd.timers."sleep-and-wake" = {
-    wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "midnight";
-        Persistent = true;
-      };
-  };
-  
-  systemd.services."sleep-and-wake" = {
-    script = ''
-      set -eu
-      ${pkgs.util-linux}/bin/rtcwake -m mem -t $(${pkgs.coreutils}/bin/date -d "06:00" +%s)
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-    };
-  };
-
-  programs.yubikey-touch-detector = {
-    enable = true;
-    libnotify = true;
-  };
 
   programs.kdeconnect.enable = true;
 
@@ -188,6 +147,7 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     mesa
+    libdrm
   ];
 
   services.flatpak.enable = true;

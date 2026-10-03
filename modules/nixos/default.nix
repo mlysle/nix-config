@@ -8,5 +8,9 @@
     ./printing.nix
     ./hosts.nix
     ./docker.nix
+    ./drawing.nix
+    ./wireshark.nix
+    ./yubikey.nix
+    ./ssh.nix
   ];
 }

@@ -33,29 +33,48 @@
       url = "git+https://git.gir.st/LegacyFox.git";
       flake = false;
     };
+
     compose2nix = {
       url = "github:aksiksi/compose2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
 
-  outputs = { self, nixpkgs, jovian, home-manager, plasma-manager, legacyfox, nvf, agenix, compose2nix, ... }@inputs: {
-    nixosConfigurations.eihwaz = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {inherit inputs;};
-
-      modules = [
-        ./hosts/steamdeck/default.nix
-
-        ./jovian.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit inputs; };
-          home-manager.users.max = import ./home;
-        }
-      ];
+    typstar = {
+      url = "github:arne314/typstar/dev";
+      flake = false;
     };
   };
+
+  outputs =
+    {
+      self,
+      nixpkgs,
+      jovian,
+      home-manager,
+      plasma-manager,
+      legacyfox,
+      nvf,
+      agenix,
+      compose2nix,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations.eihwaz = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+
+        modules = [
+          ./hosts/eihwaz/default.nix
+
+          # ./jovian.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.users.max = import ./home;
+          }
+        ];
+      };
+    };
 }

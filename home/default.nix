@@ -3,7 +3,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.nvf.homeManagerModules.default
     inputs.agenix.homeManagerModules.default
@@ -48,11 +49,11 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/html" = ["firefox.desktop"];
-      "x-scheme-handler/http" = ["firefox.desktop"];
-      "x-scheme-handler/https" = ["firefox.desktop"];
-      "x-scheme-handler/about" = ["firefox.desktop"];
-      "x-scheme-handler/unknown" = ["firefox.desktop"];
+      "text/html" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "x-scheme-handler/about" = [ "firefox.desktop" ];
+      "x-scheme-handler/unknown" = [ "firefox.desktop" ];
     };
   };
 
@@ -89,6 +90,7 @@
         providers.wl-copy.enable = true;
         registers = "unnamedplus";
       };
+      vim.hideSearchHighlight = true;
       vim.lsp = {
         enable = true;
         formatOnSave = true;
@@ -99,8 +101,8 @@
         presets.csharpier.enable = true;
         setupOpts = {
           formatters_by_ft = {
-            cs = ["csharpier"];
-            nix = ["nixfmt"];
+            cs = [ "csharpier" ];
+            nix = [ "nixfmt" ];
           };
           format_on_save = {
             timeout_ms = 1000;
@@ -184,22 +186,103 @@
           lua = true;
           action = "function() require('dial.map').manipulate('decrement', 'normal') end";
         }
+
+        # textobjects
+        {
+          key = "am";
+          mode = [
+            "x"
+            "o"
+          ];
+          silent = true;
+          lua = true;
+          action = "function() require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects') end";
+        }
+
+        {
+          key = "im";
+          mode = [
+            "x"
+            "o"
+          ];
+          silent = true;
+          lua = true;
+          action = "function() require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects') end";
+        }
+
+        {
+          key = "l=";
+          mode = [
+            "x"
+            "o"
+          ];
+          silent = true;
+          lua = true;
+          action = "function() require('nvim-treesitter-textobjects.select').select_textobject('@assignment.lhs', 'textobjects') end";
+        }
+
+        {
+          key = "r=";
+          mode = [
+            "x"
+            "o"
+          ];
+          silent = true;
+          lua = true;
+          action = "function() require('nvim-treesitter-textobjects.select').select_textobject('@assignment.rhs', 'textobjects') end";
+        }
+
+        {
+          key = "igi";
+          mode = [
+            "x"
+            "o"
+          ];
+          silent = true;
+          lua = true;
+          action = "function() require('nvim-treesitter-textobjects.select').select_textobject('@conditional.inner', 'textobjects') end";
+        }
+
+        {
+          key = "agi";
+          mode = [
+            "x"
+            "o"
+          ];
+          silent = true;
+          lua = true;
+          action = "function() require('nvim-treesitter-textobjects.select').select_textobject('@conditional.outer', 'textobjects') end";
+        }
+
       ];
       vim.theme = {
         enable = true;
         name = "catppuccin";
-        style = "macchiato";
+        style = "mocha";
       };
       vim.visuals = {
         rainbow-delimiters.enable = true;
       };
-      vim.treesitter.enable = true;
+      vim.treesitter = {
+        enable = true;
+        highlight.enable = true;
+        indent.enable = true;
+        textobjects = {
+          enable = true;
+          setupOpts = {
+            select = {
+              enable = true;
+              lookahead = true;
+            };
+          };
+        };
+      };
       vim.languages = {
         enableTreesitter = true;
         # enableFormat = true;
         nix = {
           enable = true;
-          lsp.servers = ["nixd"];
+          lsp.servers = [ "nixd" ];
           # format.type = ["nixfmt"];
         };
         csharp = {
@@ -233,12 +316,34 @@
               workspaces.notes = "~/doc/notes/neorg/notes";
               default_workspace = "notes";
             };
+            "core.esupports.metagen".config = {
+              author = "Maxwell Lysle";
+              type = "auto";
+            };
+            "core.integrations.treesitter".config = {
+              # Parsers come from the nix wrapper (already on tcs language registry),
+              #so neorg must not try to manage them.
+              configure_parsers = false;
+            };
           };
         };
         treesitter.enable = true;
       };
 
       vim.extraPlugins = with pkgs.vimPlugins; {
+        typstar = {
+          package = (
+            pkgs.vimUtils.buildVimPlugin {
+              name = "typstar";
+              src = inputs.typstar;
+              buildInputs = with pkgs.vimPlugins; [
+                luasnip
+                nvim-treesitter-parsers.typst
+              ];
+            }
+          );
+          setup = "require('typstar').setup({})";
+        };
         "dial.nvim" = {
           package = dial-nvim;
           setup = ''
@@ -256,7 +361,26 @@
 
       vim.autocomplete.blink-cmp = {
         enable = true;
-        friendly-snippets.enable = true;
+        friendly-snippets.enable = false;
+        setupOpts = {
+          keymap.preset = "default";
+          # I turned off snippets
+          sources = {
+            default = [
+              "lsp"
+              "path"
+              "snippets"
+              "buffer"
+            ];
+            providers = {
+              snippets = {
+                opts = {
+                  show_autosnippets = false;
+                };
+              };
+            };
+          };
+        };
       };
 
       vim.diagnostics = {
@@ -268,6 +392,20 @@
           virtual_lines = true;
         };
       };
+
+      vim.snippets.luasnip = {
+        enable = true;
+        providers = [ "friendly-snippets" ];
+        setupOpts = {
+          enable_autosnippets = true;
+          cut_selection_keys = "<Tab>";
+        };
+      };
+      mnw = {
+        enable = true;
+        extraLuaPackages = ps: [ ps.jsregexp ];
+      };
+
     };
   };
 }

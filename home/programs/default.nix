@@ -28,5 +28,6 @@
     ./libreoffice.nix
     ./zathura.nix
     ./calibre.nix
+    ./rnote.nix
   ];
 }

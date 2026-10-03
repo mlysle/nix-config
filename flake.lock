@@ -327,7 +327,8 @@
         "legacyfox": "legacyfox",
         "nixpkgs": "nixpkgs",
         "nvf": "nvf",
-        "plasma-manager": "plasma-manager"
+        "plasma-manager": "plasma-manager",
+        "typstar": "typstar"
       }
     },
     "systems": {
@@ -342,6 +343,23 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "typstar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788357293,
+        "narHash": "sha256-IOG8B/E49CVd84UqprutZieDSQh+4LNUggA5Gc4xmes=",
+        "owner": "arne314",
+        "repo": "typstar",
+        "rev": "0fe785e9f3a694d306a512e98d109251c63c6fdf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "arne314",
+        "ref": "dev",
+        "repo": "typstar",
         "type": "github"
       }
     }
