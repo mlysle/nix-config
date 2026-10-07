@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   accounts.email.accounts.migadu = {
     primary = true;

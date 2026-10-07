@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   accounts.calendar.accounts.baikal = {
     primary = true;

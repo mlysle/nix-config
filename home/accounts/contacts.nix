@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   accounts.contact.accounts.baikal = {
     remote = {
