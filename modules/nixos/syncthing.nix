@@ -18,9 +18,9 @@
           id = "B7QUGFB-C74GSFK-EKRC4KK-YD5AF4E-ZBMPPLI-FZNDF3J-GUQDWW6-4GHNLAK";
         };
 
-        # "delirion" = {
-        #   id = "";
-        # };
+        "delirion" = {
+          id = "FRAVFGY-HCHOFYW-EQ2ALUR-4ART3AW-25XMPQQ-LS3DMYK-5DH6GU5-CZTASAE";
+        };
       };
       folders = {
         "neorg" = {
@@ -28,7 +28,7 @@
           devices = [
             "jera"
             "eihwaz"
-            # "delirion"
+            "delirion"
           ];
         };
       };

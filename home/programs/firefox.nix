@@ -1,4 +1,9 @@
-{ pkgs, inputs, config, ... } :
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 
 {
   programs.firefox = {
@@ -11,101 +16,103 @@
       DisablePocket = true;
       DisableTelemetry = true;
       # Extensions
-      ExtensionSettings = let
-        moz = short: "https://addons.mozilla.org/firefox/downloads/latest/${short}/latest.xpi";
-      in {
-        "*".installation_mode = "allowed";
+      ExtensionSettings =
+        let
+          moz = short: "https://addons.mozilla.org/firefox/downloads/latest/${short}/latest.xpi";
+        in
+        {
+          "*".installation_mode = "allowed";
 
-        # uBlock Origin
-        "uBlock0@raymondhill.net" = {
-          install_url       = moz "ublock-origin";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
+          # uBlock Origin
+          "uBlock0@raymondhill.net" = {
+            install_url = moz "ublock-origin";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # Multi-Account Containers
+          "@testpilot-containers" = {
+            install_url = moz "multi-account-containers";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # VimFx
+          "VimFx-unlisted@akhodakivskiy.github.com" = {
+            install_url = "https://github.com/akhodakivskiy/VimFx/releases/download/v0.27.7/VimFx.xpi";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # ClearURLs
+          "{74145f27-f039-47ce-a470-a662b129930a}" = {
+            install_url = moz "clearurls";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}" = {
+            install_url = moz "youtube-addon";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # ActivityWatch
+          "{ef87d84c-2127-493f-b952-5b4e744245bc}" = {
+            install_url = moz "aw-watcher-web/";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # RSSPreview
+          "{7799824a-30fe-4c67-8b3e-7094ea203c94}" = {
+            install_url = moz "rsspreview";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # Cast Kodi
+          "castkodi@regseb.github.io" = {
+            install_url = moz "castkodi";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # Simple Tab Groups
+          "simple-tab-groups@drive4ik" = {
+            install_url = moz "simple-tab-groups";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # LeechBlock NG
+          # "leechblockng@proginosko.com" = {
+          #   install_url       = moz "leechblock-ng";
+          #   installation_mode = "force_installed";
+          #   updates_disabled  = true;
+          # };
+
+          # Readeck
+          "readeck@readeck.com" = {
+            install_url = moz "readeck";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # Violent Monkey
+          "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" = {
+            install_url = moz "violentmonkey";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          # Better Campus
+          # "{8927f234-4dd9-48b1-bf76-44a9e153eee0}" = {
+          #   install_url       = moz "better-canvas";
+          #   installation_mode = "force_installed";
+          #   updates_disabled  = true;
+          # };
         };
-
-        # Multi-Account Containers
-        "@testpilot-containers" = {
-          install_url       = moz "multi-account-containers";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # VimFx
-        "VimFx-unlisted@akhodakivskiy.github.com" = {
-          install_url       = "https://github.com/akhodakivskiy/VimFx/releases/download/v0.27.7/VimFx.xpi";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # ClearURLs
-        "{74145f27-f039-47ce-a470-a662b129930a}" = {
-          install_url       = moz "clearurls";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}" = {
-          install_url       = moz "youtube-addon";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # ActivityWatch
-        "{ef87d84c-2127-493f-b952-5b4e744245bc}" = {
-          install_url       = moz "aw-watcher-web/";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # RSSPreview
-        "{7799824a-30fe-4c67-8b3e-7094ea203c94}" = {
-          install_url       = moz "rsspreview";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # Cast Kodi
-        "castkodi@regseb.github.io" = {
-          install_url       = moz "castkodi";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # Simple Tab Groups
-        "simple-tab-groups@drive4ik" = {
-          install_url       = moz "simple-tab-groups";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # LeechBlock NG
-        # "leechblockng@proginosko.com" = {
-        #   install_url       = moz "leechblock-ng";
-        #   installation_mode = "force_installed";
-        #   updates_disabled  = true;
-        # };
-
-        # Readeck
-        "readeck@readeck.com" = {
-          install_url       = moz "readeck";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # Violent Monkey
-        "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" = {
-          install_url       = moz "violentmonkey";
-          installation_mode = "force_installed";
-          updates_disabled  = true;
-        };
-
-        # Better Campus
-        # "{8927f234-4dd9-48b1-bf76-44a9e153eee0}" = {
-        #   install_url       = moz "better-canvas";
-        #   installation_mode = "force_installed";
-        #   updates_disabled  = true;
-        # };
-      };
 
       "3rdparty".Extensions = {
         "leechblockng@proginosko.com" = {
@@ -201,78 +208,149 @@
         engines = {
           nix-packages = {
             name = "Nix Packages";
-            urls = [{
-              template = "https://search.nixos.org/packages";
-              params = [
-                { name = "type"; value = "packages"; }
-                { name = "query"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@np" ];
           };
 
           brave = {
             name = "Brave";
-            urls = [{
-              template = "https://search.brave.com/search";
-              params = [
-                { name = "q"; value = "{searchTerms}"; }
-                { name = "source"; value = "web"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://search.brave.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                  {
+                    name = "source";
+                    value = "web";
+                  }
+                ];
+              }
+            ];
             icon = "https://cdn.search.brave.com/serp/v3/_app/immutable/assets/favicon.acxxetWH.ico";
             definedAliases = [ "@brave" ];
           };
 
           modrinth = {
             name = "Modrinth";
-            urls = [{
-              template = "https://modrinth.com/discover/mods";
-              params = [
-                { name = "g"; value = "categories:neoforge"; }
-                { name = "v"; value = "1.21.1"; }
-                { name = "q"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://modrinth.com/discover/mods";
+                params = [
+                  {
+                    name = "g";
+                    value = "categories:neoforge";
+                  }
+                  {
+                    name = "v";
+                    value = "1.21.1";
+                  }
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "https://modrinth.com/favicon.ico";
             definedAliases = [ "@modrinth" ];
           };
 
           minecraft = {
             name = "Minecraft Wiki";
-            urls = [{
-              template = "https://minecraft.wiki";
-              params = [
-                { name = "search"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://minecraft.wiki";
+                params = [
+                  {
+                    name = "search";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "https://minecraft.wiki/favicon.ico";
-            definedAliases = [ "mc" "@minecraft" ];
+            definedAliases = [
+              "mc"
+              "@minecraft"
+            ];
           };
 
           youtube = {
             name = "Youtube";
-            urls = [{
-              template = "https://youtube.com/results";
-              params = [
-                { name = "search_query"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://youtube.com/results";
+                params = [
+                  {
+                    name = "search_query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "https://youtube.com/favicon.ico";
-            definedAliases = [ "y" "@youtube" ];
+            definedAliases = [
+              "y"
+              "@youtube"
+            ];
           };
 
           annas-archive = {
             name = "Anna's Archive";
-            urls = [{
-              template = "https://annas-archive.gd/search";
-              params = [
-                { name = "q"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://annas-archive.gd/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "https://annas-archive.gd/favicon.ico";
-            definedAliases = [ "an" "@annas" ];
+            definedAliases = [
+              "an"
+              "@annas"
+            ];
+          };
+
+          onelook = {
+            name = "OneLook";
+            urls = [
+              {
+                template = "https://onelook.com/";
+                params = [
+                  {
+                    name = "w";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "https://onelook.com/favicon.ico";
+            definedAliases = [
+              "dict"
+              "@dict"
+            ];
           };
 
           bing.metaData.hidden = true;
@@ -281,13 +359,11 @@
     };
   };
 
-  programs.firefox.package =
-    pkgs.firefox.overrideAttrs
-    (old: {
-      buildCommand = (old.buildCommand or "") + ''
-          ln -s ${inputs.legacyfox}/legacy $libDir/
-          ln -s ${inputs.legacyfox}/legacy.manifest $libDir/
-          ln -sf ${inputs.legacyfox}/config.js $libDir/mozilla.cfg
-      '';
-    });
+  programs.firefox.package = pkgs.firefox.overrideAttrs (old: {
+    buildCommand = (old.buildCommand or "") + ''
+      ln -s ${inputs.legacyfox}/legacy $libDir/
+      ln -s ${inputs.legacyfox}/legacy.manifest $libDir/
+      ln -sf ${inputs.legacyfox}/config.js $libDir/mozilla.cfg
+    '';
+  });
 }

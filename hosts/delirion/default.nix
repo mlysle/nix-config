@@ -8,7 +8,7 @@
 
   imports = [
     ../common.nix
-    ../../machines/delirion/hardware-configuration.nix
+    ../../machines/thinkpad-e14/hardware-configuration.nix
     ../../modules/nixos
   ];
 }
