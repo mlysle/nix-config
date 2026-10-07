@@ -15,7 +15,6 @@
     ./kitty.nix
     ./gh.nix
     ./tor-browser.nix
-    ./syncthing.nix
     ./qbittorrent.nix
     ./gimp.nix
     ./tuxguitar.nix
@@ -29,5 +28,6 @@
     ./zathura.nix
     ./calibre.nix
     ./rnote.nix
+    ./flameshot.nix
   ];
 }

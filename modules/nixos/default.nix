@@ -12,5 +12,6 @@
     ./wireshark.nix
     ./yubikey.nix
     ./ssh.nix
+    ./syncthing.nix
   ];
 }

@@ -7,7 +7,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    limo
+    # limo
     unityhub # for graphics programming
   ];
 }

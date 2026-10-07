@@ -112,7 +112,15 @@
   programs.nix-ld.libraries = with pkgs; [
     mesa
     libdrm
+    sdl3
+    pkgsi686Linux.sdl3
+    pkgsi686Linux.mesa
+    pkgsi686Linux.pipewire
+    pkgsi686Linux.libpulseaudio
+    pkgsi686Linux.stdenv.cc.cc.lib
+    pkgsi686Linux.glib
   ];
 
   services.flatpak.enable = true;
+  hardware.graphics.enable32Bit = true;
 }
