@@ -42,6 +42,12 @@
           enable = true;
           gitStatus.enable = true;
         };
+        snacks-nvim = {
+          enable = true;
+          setupOpts = {
+            input.enabled = true;
+          };
+        };
       };
       vim.options = {
         smartindent = true;
@@ -73,6 +79,9 @@
       vim.languages = {
         enableTreesitter = true;
         # enableFormat = true;
+        lua = {
+          enable = true;
+        };
         nix = {
           enable = true;
           lsp.servers = [ "nixd" ];
@@ -198,7 +207,6 @@
         enable = true;
         extraLuaPackages = ps: [ ps.jsregexp ];
       };
-
     };
   };
 }

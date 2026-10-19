@@ -27,5 +27,6 @@
     ./calibre.nix
     ./rnote.nix
     ./flameshot.nix
+    ./direnv.nix
   ];
 }
