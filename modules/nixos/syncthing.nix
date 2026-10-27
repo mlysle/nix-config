@@ -29,6 +29,15 @@
             "delirion"
           ];
         };
+
+        "notes" = {
+          path = "/home/max/doc/notes/study";
+          devices = [
+            "jera"
+            "eihwaz"
+            "delirion"
+          ];
+        };
       };
     };
   };
