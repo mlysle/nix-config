@@ -164,10 +164,40 @@
 
       vim.autocomplete.blink-cmp = {
         enable = true;
-        friendly-snippets.enable = false;
+        mappings = {
+          confirm = "<C-y>";
+          # next = "<C-n>";
+          # previous = "<C-p>";
+          scrollDocsDown = "<C-j>";
+          scrollDocsUp = "<C-k>";
+
+        };
+
         setupOpts = {
-          keymap.preset = "default";
           # I turned off snippets
+          keymap = {
+            "<Tab>" = [
+              "snippet_forward"
+              "fallback"
+            ];
+            "<S-Tab>" = [
+              "snippet_backward"
+              "fallback"
+            ];
+            "<C-n>" = [
+              "select_next"
+              "fallback"
+            ];
+            "<C-p>" = [
+              "select_prev"
+              "fallback"
+            ];
+          };
+          keymap.preset = "super-tab";
+          completion.trigger.show_in_snippet = false;
+          snippets = {
+            preset = "luasnip";
+          };
           sources = {
             default = [
               "lsp"
@@ -184,6 +214,10 @@
             };
           };
         };
+      };
+
+      vim.autopairs.nvim-autopairs = {
+        enable = true;
       };
 
       vim.diagnostics = {
@@ -204,6 +238,7 @@
           cut_selection_keys = "<Tab>";
         };
       };
+
       mnw = {
         enable = true;
         extraLuaPackages = ps: [ ps.jsregexp ];
