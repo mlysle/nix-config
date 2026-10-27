@@ -99,6 +99,13 @@
             updates_disabled = true;
           };
 
+          # Feedless
+          "{53a6eedc-9cce-4134-b93c-5542108a18ce}" = {
+            install_url = moz "feedless";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
           # Violent Monkey
           "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" = {
             install_url = moz "violentmonkey";
