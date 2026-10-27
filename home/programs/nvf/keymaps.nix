@@ -131,6 +131,15 @@
       lua = true;
       action = "function() require('nvim-treesitter-textobjects.select').select_textobject('@conditional.outer', 'textobjects') end";
     }
-
+    # Typstar
+    {
+      key = "<LocalLeader>id";
+      mode = [
+        "n"
+      ];
+      silent = true;
+      lua = true;
+      action = "function() require('typstar.drawings').insert_rnote() end";
+    }
   ];
 }

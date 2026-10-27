@@ -22,6 +22,7 @@
         enable = true;
         formatOnSave = true;
       };
+      vim.globals.mapleader = "<Space>";
       vim.formatter.conform-nvim = {
         enable = true;
         presets.nixfmt.enable = true;
