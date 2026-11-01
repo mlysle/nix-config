@@ -52,6 +52,7 @@
       "x-scheme-handler/https" = [ "firefox.desktop" ];
       "x-scheme-handler/about" = [ "firefox.desktop" ];
       "x-scheme-handler/unknown" = [ "firefox.desktop" ];
+      "application/pdf" = [ "sioyek.desktop" ];
     };
   };
 
@@ -75,6 +76,18 @@
       default = [
         "kitty.desktop"
       ];
+    };
+  };
+
+  programs.ssh = {
+    enable = true;
+    settings = {
+      "ssh.lysle.org" = {
+        User = "mlysle";
+        ProxyCommand = "cloudflared access ssh --hostname %h";
+        identityFile = "~/.ssh/ssh_auth_key.pub";
+        IdentitiesOnly = "yes";
+      };
     };
   };
 }

@@ -24,6 +24,7 @@
     ./zoom.nix
     ./libreoffice.nix
     ./zathura.nix
+    ./sioyek.nix
     ./calibre.nix
     ./rnote.nix
     ./flameshot.nix
