@@ -116,7 +116,7 @@
             "core.defaults".enable = true;
             "core.journal".config.strategy = "flat";
             "core.dirman".config = {
-              workspaces.notes = "~/doc/notes/neorg/notes";
+              workspaces.notes = "~/doc/neorg/notes";
               default_workspace = "notes";
             };
             "core.esupports.metagen".config = {

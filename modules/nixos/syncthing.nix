@@ -22,7 +22,7 @@
       };
       folders = {
         "neorg" = {
-          path = "/home/max/doc/notes/neorg";
+          path = "/home/max/doc/neorg";
           devices = [
             "jera"
             "eihwaz"
@@ -30,8 +30,8 @@
           ];
         };
 
-        "notes" = {
-          path = "/home/max/doc/notes/study";
+        "uni" = {
+          path = "/home/max/doc/uni/";
           devices = [
             "jera"
             "eihwaz"
