@@ -158,7 +158,16 @@
             "adguard-widgets"
             "ublock-annoyances"
           ];
-          "userFilters" = "en.wikipedia.org###mp-itn\nen.wikipedia.org###mp-itn-h2";
+          # news
+          "userFilters" = ''
+            en.wikipedia.org###mp-itn
+            en.wikipedia.org###mp-itn-h2
+            shroomery.org##div.headlines
+            shroomery.org##div.bottomcol > ul > li:has(a[href*="Board/14"])
+            shroomery.org##div.bottomcol > ul > li:has(a[href*="Board/34"])
+            shroomery.org###f14
+            shroomery.org###f34
+          '';
         };
       };
     };
